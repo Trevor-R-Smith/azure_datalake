@@ -1,0 +1,41 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "databaseName": {
+      "type": "string"
+    },
+    "skuName": {
+      "type": "string"
+    },
+    "serverName": {
+      "type": "string"
+    },
+    "serverLocation": {
+      "type": "string"
+    },
+    "collation": {
+      "type": "string"
+    },
+    "databaseTags": {
+      "defaultValue": {},
+      "type": "object"
+    }
+  },
+  "resources": [
+    {
+      "name": "[concat(parameters('serverName'), '/', parameters('databaseName'))]",
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2017-10-01-preview",
+      "location": "[parameters('serverLocation')]",
+      "tags": "[parameters('databaseTags')]",
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "tier": "DataWarehouse"
+      },
+      "properties": {
+        "collation": "[parameters('collation')]"
+      }
+    }
+  ]
+}
